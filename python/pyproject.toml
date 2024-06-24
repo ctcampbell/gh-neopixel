@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "gh-neopixel"
+version = "0.1.0"
+description = ""
+authors = ["Chris Campbell <808531+ctcampbell@users.noreply.github.com>"]
+license = "MIT"
+readme = "../README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyserial = "^3.5"
+pygithub = "^2.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

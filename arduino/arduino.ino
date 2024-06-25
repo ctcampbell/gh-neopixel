@@ -23,7 +23,7 @@ const uint16_t colors[] = {
 
 void setup() {
   matrix.begin();
-  matrix.setBrightness(10);
+  matrix.setBrightness(100);
   Serial.begin(9600);
   Serial.print("<ready>\n");
 }

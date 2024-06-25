@@ -25,15 +25,15 @@ void setup() {
   matrix.begin();
   matrix.setBrightness(100);
   Serial.begin(9600);
-  Serial.print("<ready>\n");
+  Serial.println("<ready>");
 }
 
 void loop() {
   if (Serial.available() > 0) {
     long count = Serial.parseInt();
-    count = min(39, count);
+    count = max(0, min(39, count));
     matrix.clear();
-    for (long i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++) {
       matrix.setPixelColor(i, colors[0]);
     }
   }

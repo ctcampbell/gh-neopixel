@@ -24,7 +24,7 @@ def main():
                 if args.debug:
                     print(f"Serial port {ser.name} opened")
                 initString = ser.readline()
-                if initString == b"<ready>\n":
+                if initString.startswith(b"<ready>"):
                     if args.debug:
                         print("Arduino ready to receive data")
                     while True:

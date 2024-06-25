@@ -31,7 +31,9 @@ void setup() {
 void loop() {
   if (Serial.available() > 0) {
     long count = Serial.parseInt();
-    count = max(0, min(39, count));
+    // Last pixel is reserved for power status so max
+    // count is 1 less than total pixel count
+    count = max(0, min((matrixH * matrixW) - 1, count));
     matrix.clear();
     for (int i = 0; i < count; i++) {
       matrix.setPixelColor(i, colors[0]);

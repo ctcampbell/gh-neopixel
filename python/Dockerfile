@@ -8,6 +8,6 @@ WORKDIR /src
 COPY . .
 RUN poetry bundle venv --python=/usr/bin/python3 --only=main /venv
 
-FROM gcr.io/distroless/python3-debian12
+FROM arm32v7/python
 COPY --from=builder /venv /venv
 ENTRYPOINT ["/venv/bin/python", "-m", "ghneopixel"]

@@ -1,10 +1,9 @@
 [tool.poetry]
-name = "gh-neopixel"
+name = "ghneopixel"
 version = "0.1.0"
 description = ""
 authors = ["Chris Campbell <808531+ctcampbell@users.noreply.github.com>"]
 license = "MIT"
-readme = "../README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"

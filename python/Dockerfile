@@ -1,12 +1,17 @@
-FROM debian:12-slim AS builder
-RUN apt-get update && \
-    apt-get install --no-install-suggests --no-install-recommends --yes pipx
-ENV PATH="/root/.local/bin:${PATH}"
-RUN pipx install poetry
-RUN pipx inject poetry poetry-plugin-bundle
-WORKDIR /src
+FROM python:3.12-alpine3.19 AS builder
+
+WORKDIR /app
+
+RUN apk add --no-cache curl build-base libffi-dev openssl-dev cargo && \
+curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH="${PATH}:/root/.local/bin" PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+RUN python -m venv /venv
+
+COPY pyproject.toml poetry.lock ./
+RUN poetry export -f requirements.txt | /venv/bin/pip install -r /dev/stdin
+
 COPY . .
-RUN poetry bundle venv --python=/usr/bin/python3 --only=main /venv
+RUN poetry build && /venv/bin/pip install dist/*.whl
 
 FROM python:3.12-slim
 COPY --from=builder /venv /venv

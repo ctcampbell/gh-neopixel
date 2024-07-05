@@ -21,12 +21,11 @@ def main():
             try:
                 ser.port = args.port
                 ser.open()
-                if args.debug:
-                    print(f"Serial port {ser.name} opened")
+                print(f"Serial port {ser.name} opened")
                 initString = ser.readline()
                 if initString.startswith(b"<ready>"):
-                    if args.debug:
-                        print("Arduino ready to receive data")
+                    print("Arduino ready to receive data")
+                    print("Polling for notifications")
                     while True:
                         notifications = g.get_user().get_notifications()
                         if args.debug:
@@ -37,8 +36,7 @@ def main():
                         time.sleep(int(wait))
             except serial.SerialException as e:
                 if e.errno == 16:
-                    if args.debug:
-                        print("Serial port already in use, trying again in 10 seconds")
+                    print("Serial port already in use, trying again in 10 seconds")
                     time.sleep(10)
                 else:
                     raise

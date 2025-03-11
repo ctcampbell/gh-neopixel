@@ -25,12 +25,12 @@ def main():
                 initString = ser.readline()
                 if initString.startswith(b"<ready>"):
                     print("Arduino ready to receive data")
-                    print("Polling for notifications")
+                    print("Polling for issues")
                     while True:
-                        notifications = g.get_user().get_notifications()
+                        issues = g.get_repo("github/advanced-security-field").get_issues(state="open", labels=["region-corporate-emea", "pending_ase_approval"])
                         if args.debug:
-                            print(f"Notification count: {notifications.totalCount}")
-                        ser.write(bytes(str(notifications.totalCount), "utf-8"))
+                            print(f"Issue count: {issues.totalCount}")
+                        ser.write(bytes(str(issues.totalCount), "utf-8"))
                         if args.debug:
                             print(f"Sleeping for {wait} seconds")
                         time.sleep(int(wait))
